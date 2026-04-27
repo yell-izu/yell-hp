@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>特定非営利活動法人えーる | 就労継続支援B型・相談支援</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F7F3EC;
+      --warm-white: #FDFAF5;
+      --earth: #8B6F47;
+      --earth-light: #C4A47C;
+      --earth-dark: #5C4530;
+      --sage: #7A9E7E;
+      --sage-light: #B5CEB8;
+      --sage-dark: #4A7050;
+      --charcoal: #2C2820;
+      --mid-gray: #6B6258;
+      --light-gray: #E8E3DA;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--warm-white); color: var(--charcoal); font-weight: 300; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(247,243,236,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--light-gray); display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 70px; }
+    .nav-logo { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--earth-dark); letter-spacing: 0.05em; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 1.8rem; }
+    nav ul a { text-decoration: none; color: var(--mid-gray); font-size: 0.82rem; font-weight: 400; letter-spacing: 0.06em; transition: color 0.2s; position: relative; }
+    nav ul a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--sage); transform: scaleX(0); transition: transform 0.3s; }
+    nav ul a:hover { color: var(--sage-dark); }
+    nav ul a:hover::after { transform: scaleX(1); }
+    .nav-cta { background: var(--sage) !important; color: white !important; padding: 8px 18px; border-radius: 2px; font-weight: 500 !important; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--sage-dark) !important; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+    .hero-left { background: var(--cream); display: flex; flex-direction: column; justify-content: center; padding: 120px 4rem 80px; }
+    .hero-tag { display: inline-block; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--sage-dark); border: 1px solid var(--sage); padding: 5px 14px; margin-bottom: 2.5rem; font-weight: 500; animation: fadeUp 0.8s ease both; }
+    .hero-title { font-family: 'Noto Serif JP', serif; font-size: 3.4rem; line-height: 1.35; font-weight: 700; color: var(--earth-dark); margin-bottom: 2rem; animation: fadeUp 0.8s 0.15s ease both; }
+    .hero-title .accent { color: var(--sage-dark); }
+    .hero-desc { font-size: 0.97rem; line-height: 2; color: var(--mid-gray); max-width: 400px; margin-bottom: 3rem; animation: fadeUp 0.8s 0.3s ease both; }
+    .hero-buttons { display: flex; gap: 1rem; animation: fadeUp 0.8s 0.45s ease both; }
+    .hero-right { background: var(--sage-light); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .hero-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 30%, rgba(122,158,126,0.4) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139,111,71,0.2) 0%, transparent 50%); }
+    .hero-card { background: rgba(255,255,255,0.88); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.9); padding: 2.5rem; width: 340px; position: relative; z-index: 2; animation: fadeUp 1s 0.5s ease both; box-shadow: 0 20px 60px rgba(90,60,30,0.1); }
+    .hero-card-title { font-family: 'Noto Serif JP', serif; font-size: 1rem; color: var(--earth-dark); font-weight: 700; padding-bottom: 1rem; border-bottom: 1px solid var(--light-gray); }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.3rem; color: var(--earth); line-height: 1; }
+    .stat-unit { font-size: 0.85rem; color: var(--earth-light); }
+    .stat-label { font-size: 0.72rem; color: var(--mid-gray); margin-top: 5px; }
+
+    /* BUTTONS */
+    .btn-primary { background: var(--earth); color: white; padding: 13px 28px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; font-size: 0.88rem; letter-spacing: 0.1em; font-weight: 500; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--earth-dark); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--earth); padding: 13px 28px; border: 1.5px solid var(--earth); cursor: pointer; font-family: 'Noto Sans JP', sans-serif; font-size: 0.88rem; letter-spacing: 0.1em; font-weight: 500; text-decoration: none; display: inline-block; transition: background 0.2s, color 0.2s, transform 0.2s; }
+    .btn-outline:hover { background: var(--earth); color: white; transform: translateY(-2px); }
+    .btn-white { background: white; color: var(--earth-dark); padding: 15px 36px; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .btn-outline-white { background: transparent; color: white; padding: 15px 36px; border: 1.5px solid rgba(255,255,255,0.5); cursor: pointer; font-family: 'Noto Sans JP', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; font-weight: 400; text-decoration: none; display: inline-block; transition: border-color 0.2s, background 0.2s; }
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+    /* SECTION COMMON */
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.25em; color: var(--sage-dark); text-transform: uppercase; font-weight: 500; margin-bottom: 1rem; }
+    .section-title { font-family: 'Noto Serif JP', serif; font-size: 2.3rem; font-weight: 700; color: var(--earth-dark); line-height: 1.4; margin-bottom: 1.5rem; }
+    .section-desc { font-size: 0.97rem; line-height: 2; color: var(--mid-gray); max-width: 600px; }
+
+    /* ABOUT */
+    .about { background: var(--warm-white); padding: 100px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: center; margin-top: 60px; }
+    .about-visual { position: relative; }
+    .about-img-block { background: var(--cream); border: 1px solid var(--light-gray); height: 360px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .about-img-block::before { content: '🌱'; font-size: 6rem; opacity: 0.12; position: absolute; bottom: 20px; right: 20px; }
+    .about-tag-block { position: absolute; bottom: -20px; right: -20px; background: var(--sage); color: white; padding: 14px 22px; font-family: 'Noto Serif JP', serif; font-size: 0.88rem; font-weight: 700; box-shadow: 0 8px 30px rgba(74,112,80,0.3); }
+    .big-icon { font-size: 3.8rem; margin-bottom: 1rem; display: block; }
+    .about-list { list-style: none; margin-top: 2rem; }
+    .about-list li { display: flex; gap: 12px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--light-gray); font-size: 0.92rem; line-height: 1.8; color: var(--mid-gray); }
+    .check { color: var(--sage); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+
+    /* SERVICES */
+    .services { background: var(--cream); padding: 100px 0; }
+    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--light-gray); }
+    .service-card { background: var(--warm-white); padding: 2.5rem; transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--sage-light); transition: background 0.3s; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(90,60,30,0.08); }
+    .service-card:hover::before { background: var(--sage); }
+    .service-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+    .service-name { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--earth-dark); margin-bottom: 0.7rem; }
+    .service-desc { font-size: 0.88rem; line-height: 1.9; color: var(--mid-gray); }
+    .service-tag { display: inline-block; font-size: 0.7rem; color: var(--sage-dark); border: 1px solid var(--sage-light); padding: 3px 10px; margin-top: 1rem; letter-spacing: 0.1em; }
+
+    /* FLOW */
+    .flow { background: var(--warm-white); padding: 100px 0; }
+    .flow-steps { display: flex; gap: 0; margin-top: 60px; position: relative; }
+    .flow-steps::before { content: ''; position: absolute; top: 40px; left: 40px; right: 40px; height: 1px; background: linear-gradient(to right, var(--sage-light), var(--earth-light), var(--sage-light)); }
+    .flow-step { flex: 1; text-align: center; padding: 0 1.5rem; position: relative; }
+    .step-circle { width: 80px; height: 80px; border-radius: 50%; background: var(--cream); border: 2px solid var(--sage); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--sage-dark); position: relative; z-index: 1; transition: background 0.3s, color 0.3s; }
+    .flow-step:hover .step-circle { background: var(--sage); color: white; }
+    .step-label { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--sage-dark); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .step-title { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; color: var(--earth-dark); margin-bottom: 0.6rem; }
+    .step-desc { font-size: 0.85rem; color: var(--mid-gray); line-height: 1.8; }
+
+    /* 相談支援こころ */
+    .cocoro { background: var(--cream); padding: 100px 0; }
+    .cocoro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 50px; }
+    .cocoro-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .cocoro-card { background: var(--warm-white); border: 1px solid var(--light-gray); padding: 2rem; text-align: center; }
+    .cocoro-card.green { border-top: 3px solid var(--sage); }
+    .cocoro-card.earth-top { border-top: 3px solid var(--earth-light); }
+    .cocoro-card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .cocoro-card-title { font-family: 'Noto Serif JP', serif; font-size: 0.95rem; font-weight: 700; color: var(--earth-dark); margin-bottom: 0.5rem; }
+    .cocoro-card-desc { font-size: 0.82rem; color: var(--mid-gray); line-height: 1.7; }
+    .check-list { list-style: none; }
+    .check-list li { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--light-gray); font-size: 0.9rem; color: var(--mid-gray); }
+    .check-list li:last-child { border-bottom: none; }
+
+    /* 手作り製品 */
+    .products { background: var(--warm-white); padding: 100px 0; }
+    .products-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 50px; }
+    .product-card { background: var(--cream); border: 1px solid var(--light-gray); padding: 2rem; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(90,60,30,0.08); }
+    .product-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .product-name { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; color: var(--earth-dark); margin-bottom: 0.6rem; }
+    .product-desc { font-size: 0.82rem; color: var(--mid-gray); line-height: 1.8; }
+    .products-note { text-align: center; margin-top: 2.5rem; font-size: 0.9rem; color: var(--mid-gray); }
+
+    /* 活動記録 */
+    .activities { background: var(--earth-dark); padding: 100px 0; }
+    .activities .section-label { color: var(--sage-light); }
+    .activities .section-title { color: white; }
+    .activities .section-desc { color: rgba(255,255,255,0.65); margin-bottom: 50px; }
+    .season-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.08); }
+    .season-col { background: rgba(255,255,255,0.05); padding: 2rem; }
+    .season-title { font-size: 1.6rem; font-family: 'DM Serif Display', serif; color: var(--sage-light); margin-bottom: 1rem; }
+    .season-list { list-style: none; }
+    .season-list li { font-size: 0.85rem; color: rgba(255,255,255,0.75); padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); line-height: 1.6; }
+    .season-list li:last-child { border-bottom: none; }
+    .staff-bar { margin-top: 3rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
+    .staff-item { text-align: center; }
+    .staff-role { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--sage-light); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .staff-name { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; color: white; }
+    .staff-divider { width: 1px; background: rgba(255,255,255,0.1); }
+
+    /* VOICES */
+    .voices { background: var(--earth-dark); padding: 100px 0; }
+    .voices .section-label { color: var(--sage-light); }
+    .voices .section-title { color: white; }
+    .voices .section-desc { color: rgba(255,255,255,0.7); }
+    .voices-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 50px; }
+    .voice-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; transition: background 0.3s; }
+    .voice-card:hover { background: rgba(255,255,255,0.1); }
+    .voice-quote { font-size: 2rem; color: var(--sage-light); line-height: 1; margin-bottom: 0.5rem; }
+    .voice-text { font-size: 0.9rem; line-height: 2; color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; }
+    .voice-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .author-name { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 600; color: white; }
+    .author-meta { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    /* INFO */
+    .info { background: var(--cream); padding: 100px 0; }
+    .info-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 70px; margin-top: 50px; }
+    .info-table { width: 100%; border-collapse: collapse; }
+    .info-table tr { border-bottom: 1px solid var(--light-gray); }
+    .info-table th { width: 140px; font-size: 0.8rem; font-weight: 500; color: var(--earth); letter-spacing: 0.1em; padding: 14px 0; text-align: left; vertical-align: top; }
+    .info-table td { font-size: 0.9rem; color: var(--mid-gray); padding: 14px 0; line-height: 1.8; }
+    .map-placeholder { background: var(--sage-light); height: 100%; min-height: 320px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .map-placeholder::before { content: '📍'; font-size: 3rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-55%); }
+    .map-label { position: absolute; bottom: 20px; left: 20px; background: white; padding: 8px 16px; font-size: 0.8rem; color: var(--mid-gray); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, var(--sage-dark) 0%, var(--earth-dark) 100%); padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 60%), radial-gradient(circle at 80% 50%, rgba(255,255,255,0.05) 0%, transparent 60%); }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-section .section-label { color: var(--sage-light); }
+    .cta-section .section-title { color: white; font-size: 2.6rem; }
+    .cta-section .section-desc { color: rgba(255,255,255,0.75); margin: 0 auto 2.5rem; }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); color: rgba(255,255,255,0.6); padding: 60px 0 30px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-desc { font-size: 0.85rem; line-height: 1.9; margin-top: 1rem; color: rgba(255,255,255,0.4); }
+    .footer-col h4 { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1.2rem; font-weight: 500; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul a { text-decoration: none; color: rgba(255,255,255,0.55); font-size: 0.85rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--sage-light); }
+    .footer-bottom { padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 120px 2.5rem 80px; }
+      .hero-title { font-size: 2.6rem; }
+      nav { padding: 0 2rem; }
+      nav ul { gap: 1.2rem; }
+      .section-inner { padding: 0 2.5rem; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .voices-grid { grid-template-columns: 1fr 1fr; }
+      .season-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .services-grid, .voices-grid, .products-grid { grid-template-columns: 1fr; }
+      .about-grid, .info-grid, .cocoro-grid { grid-template-columns: 1fr; }
+      .flow-steps { flex-direction: column; }
+      .flow-steps::before { display: none; }
+      .season-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .services-header { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      .cocoro-cards { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">🌿 特定非営利活動法人えーる</a>
+  <ul>
+    <li><a href="#about">私たちについて</a></li>
+    <li><a href="#services">サービス</a></li>
+    <li><a href="#cocoro">相談支援こころ</a></li>
+    <li><a href="#products">手作り製品</a></li>
+    <li><a href="#activities">活動記録</a></li>
+    <li><a href="#info">アクセス</a></li>
+    <li><a href="#contact" class="nav-cta">お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">特定非営利活動法人えーる</span>
+    <h1 class="hero-title">
+      <span class="accent">はたらく</span>喜びを、<br>
+      あなたと一緒に。
+    </h1>
+    <p class="hero-desc">
+      特定非営利活動法人えーるは、障がいのある方が自分らしく働き、社会とつながるための場所です。一人ひとりの可能性を大切に、個別支援で就労と自立をサポートします。
+    </p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">見学・相談予約</a>
+      <a href="#services" class="btn-outline">サービスを見る</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-pattern"></div>
+    <div style="position:relative;z-index:2;animation:fadeUp 1s 0.5s ease both;">
+      <div class="hero-card">
+        <div class="hero-card-title">🌱 えーるの実績</div>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-num">20<span class="stat-unit">名</span></div>
+            <div class="stat-label">定員（B型）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">20<span class="stat-unit">年</span></div>
+            <div class="stat-label">支援の実績</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2<span class="stat-unit">事業</span></div>
+            <div class="stat-label">就労継続＋相談支援</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">365<span class="stat-unit">日</span></div>
+            <div class="stat-label">地域に寄り添う</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">「できる」を育てる、<br>安心の居場所</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-block">
+          <div style="text-align:center;padding:2rem;">
+            <span class="big-icon">🤝</span>
+            <p style="font-size:0.9rem;color:var(--mid-gray);line-height:1.8;">スタッフと利用者が共に<br>成長できる環境を目指して</p>
+          </div>
+        </div>
+        <div class="about-tag-block">設立2005年<br>実績20年</div>
+      </div>
+      <div class="reveal">
+        <p class="section-desc">障がいや心の病気をお持ちの方が、社会参加や就労に向けて着実に歩める環境を提供しています。経験豊かなスタッフが一人ひとりに寄り添い、安心して通える作業所です。</p>
+        <ul class="about-list">
+          <li><span class="check">✓</span>就労継続支援B型・相談支援事業の両サービスに対応</li>
+          <li><span class="check">✓</span>伊豆の自然の中で農園・作業・クリエイティブ活動を展開</li>
+          <li><span class="check">✓</span>週1日〜フルタイムまで、無理なく始められるペース設定</li>
+          <li><span class="check">✓</span>地域の行事・清掃活動などを通じて社会とつながる機会を提供</li>
+          <li><span class="check">✓</span>手作り製品の販売や農園作業で「働く喜び」を実感</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <div>
+        <div class="section-label">Services</div>
+        <h2 class="section-title">多彩な作業・支援プログラム</h2>
+      </div>
+      <p class="section-desc" style="max-width:340px;font-size:0.9rem;">それぞれの特性や希望に応じて、最適なプログラムをご提案します。</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🍄</div>
+        <div class="service-name">しいたけ栽培・収穫</div>
+        <p class="service-desc">菌打ちから収穫・販売まで一貫して行う農林業作業。自然の中で達成感を味わいながら働く力を育みます。</p>
+        <span class="service-tag">就労継続支援B型</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🌾</div>
+        <div class="service-name">ワイナリー農園作業</div>
+        <p class="service-desc">除草・収穫など季節に応じた農園作業。体を動かしながら協働する力と生活リズムを整えます。</p>
+        <span class="service-tag">就労継続支援B型</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎨</div>
+        <div class="service-name">クリエイティブ制作</div>
+        <p class="service-desc">プラバン作品・ポップ制作など創造性を活かした作業。作品はイベントで販売し社会とつながります。</p>
+        <span class="service-tag">就労継続支援B型</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎋</div>
+        <div class="service-name">稲荷旗・竹竿製作</div>
+        <p class="service-desc">農の駅での販売を行う伝統的な手作り製品。丁寧な作業を通じて集中力と誇りを育みます。</p>
+        <span class="service-tag">就労継続支援B型</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏛️</div>
+        <div class="service-name">地域清掃・社会参加</div>
+        <p class="service-desc">沼津土木修善寺支所などの清掃活動。地域の一員として貢献する喜びと自信を育てます。</p>
+        <span class="service-tag">就労継続支援B型</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🧘</div>
+        <div class="service-name">生活リズム・健康管理</div>
+        <p class="service-desc">規則正しい生活習慣の確立と体調管理を学ぶプログラム。働き続けるための基礎力を養います。</p>
+        <span class="service-tag">全サービス共通</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow" id="flow">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">How to Start</div>
+      <h2 class="section-title">ご利用の流れ</h2>
+      <p class="section-desc" style="margin:0 auto 60px;">はじめての方も安心してご相談いただけます。お気軽にご連絡ください。</p>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step reveal">
+        <div class="step-circle">1</div>
+        <div class="step-label">Step 01</div>
+        <div class="step-title">お問い合わせ</div>
+        <p class="step-desc">電話・メール・来所など、お気軽にご連絡ください。無料相談も受け付けています。</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-circle">2</div>
+        <div class="step-label">Step 02</div>
+        <div class="step-title">見学・体験</div>
+        <p class="step-desc">施設見学・体験利用で雰囲気を確認。見学は無料・何度でもOKです。</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-circle">3</div>
+        <div class="step-label">Step 03</div>
+        <div class="step-title">受給者証申請</div>
+        <p class="step-desc">市区町村の窓口で障害福祉サービス受給者証を申請します。手続きをサポートします。</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="step-circle">4</div>
+        <div class="step-label">Step 04</div>
+        <div class="step-title">利用開始</div>
+        <p class="step-desc">個別支援計画を作成し、あなたのペースで利用開始。スタッフが丁寧にサポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 相談支援こころ -->
+<section class="cocoro" id="cocoro">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Consultation Support</div>
+      <h2 class="section-title">相談支援事業「こころ」</h2>
+    </div>
+    <div class="cocoro-grid">
+      <div class="reveal">
+        <p style="font-size:1rem;line-height:2.2;color:var(--mid-gray);margin-bottom:1.8rem;">「こころ」は、障がいのある方やそのご家族が抱えるさまざまな悩みに寄り添う相談支援事業所です。福祉サービスの利用に関する相談から、日常生活・就労・地域との関わりまで、幅広く対応しています。</p>
+        <p style="font-size:1rem;line-height:2.2;color:var(--mid-gray);margin-bottom:1.8rem;">相談支援専門員が一人ひとりの状況に合わせた「サービス等利用計画」を作成し、必要な支援につなぎます。まずはお気軽にお電話・ご来所ください。</p>
+        <ul class="check-list">
+          <li><span class="check">✓</span>障害福祉サービスの利用相談・計画作成</li>
+          <li><span class="check">✓</span>サービス等利用計画・障害児支援利用計画の作成</li>
+          <li><span class="check">✓</span>モニタリング（定期的な見直し・フォロー）</li>
+          <li><span class="check">✓</span>地域の関係機関との連絡・調整</li>
+        </ul>
+      </div>
+      <div class="cocoro-cards reveal">
+        <div class="cocoro-card green">
+          <div class="cocoro-card-icon">🗣️</div>
+          <div class="cocoro-card-title">初回相談</div>
+          <div class="cocoro-card-desc">無料でご相談いただけます。秘密は守ります。</div>
+        </div>
+        <div class="cocoro-card green">
+          <div class="cocoro-card-icon">📋</div>
+          <div class="cocoro-card-title">計画作成</div>
+          <div class="cocoro-card-desc">ご本人の意向を尊重した計画を作成します。</div>
+        </div>
+        <div class="cocoro-card earth-top">
+          <div class="cocoro-card-icon">🔄</div>
+          <div class="cocoro-card-title">継続支援</div>
+          <div class="cocoro-card-desc">定期的な面談で状況を確認・調整します。</div>
+        </div>
+        <div class="cocoro-card earth-top">
+          <div class="cocoro-card-icon">🤝</div>
+          <div class="cocoro-card-title">連携支援</div>
+          <div class="cocoro-card-desc">医療・行政など関係機関と連携します。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 手作り製品 -->
+<section class="products" id="products">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">Handmade Products</div>
+      <h2 class="section-title">手作り製品の紹介</h2>
+      <p class="section-desc" style="margin:0 auto;">利用者のみなさんが心を込めて作った製品です。イベントや直売所での販売も行っています。</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-icon">🎨</div>
+        <div class="product-name">プラバン作品</div>
+        <p class="product-desc">カラフルで個性あふれるプラスチック板アクセサリー。イベントで人気の商品です。</p>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon">🍄</div>
+        <div class="product-name">原木しいたけ</div>
+        <p class="product-desc">菌打ちから丁寧に育てた原木しいたけ。新鮮なまま直売しています。</p>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon">🎋</div>
+        <div class="product-name">稲荷旗・竹竿</div>
+        <p class="product-desc">農の駅での販売も行う、伝統的な手作り製品です。</p>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon">🌾</div>
+        <div class="product-name">農園野菜</div>
+        <p class="product-desc">ワイナリー農園での収穫作業で育てた新鮮野菜を販売しています。</p>
+      </div>
+    </div>
+    <p class="products-note reveal">📍 販売場所：農の駅・各種イベント・えーる施設内　※在庫状況はお問い合わせください</p>
+  </div>
+</section>
+
+<!-- 活動記録 -->
+<section class="activities" id="activities">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Annual Activities</div>
+      <h2 class="section-title">年間の主な活動</h2>
+      <p class="section-desc">地域とのつながりを大切に、四季折々の行事・作業に取り組んでいます。</p>
+    </div>
+    <div class="season-grid reveal">
+      <div class="season-col">
+        <div class="season-title">春</div>
+        <ul class="season-list">
+          <li>🌸 仕事始め・最勝院へ初詣</li>
+          <li>🌿 ワイナリー農園作業（除草）</li>
+          <li>🍄 しいたけ菌打ち作業</li>
+          <li>🏛️ 沼津土木修善寺支所清掃</li>
+        </ul>
+      </div>
+      <div class="season-col">
+        <div class="season-title">夏</div>
+        <ul class="season-list">
+          <li>🎆 えーる納涼祭</li>
+          <li>🌾 ワイナリー農園収穫作業</li>
+          <li>🚒 避難確保訓練</li>
+          <li>🎬 施設内映画鑑賞会</li>
+        </ul>
+      </div>
+      <div class="season-col">
+        <div class="season-title">秋</div>
+        <ul class="season-list">
+          <li>🏃 東部地区スポーツレク大会</li>
+          <li>🎪 ふれあいフェスタ出店</li>
+          <li>🏫 伊豆総合高校土肥分校文化祭参加</li>
+          <li>🎖️ 社会福祉大会 表彰</li>
+        </ul>
+      </div>
+      <div class="season-col">
+        <div class="season-title">冬</div>
+        <ul class="season-list">
+          <li>⛩️ 達磨山で新年の抱負を叫ぶ！</li>
+          <li>🎋 農の駅・稲荷旗竹竿販売</li>
+          <li>🍂 大野の渋谷さん宅で銀杏取り</li>
+          <li>🎂 えーる開所記念日（11月）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="staff-bar reveal">
+      <div class="staff-item">
+        <div class="staff-role">理事長</div>
+        <div class="staff-name">小川 道雄</div>
+      </div>
+      <div class="staff-divider"></div>
+      <div class="staff-item">
+        <div class="staff-role">副理事長</div>
+        <div class="staff-name">三田 忠男</div>
+      </div>
+      <div class="staff-divider"></div>
+      <div class="staff-item">
+        <div class="staff-role">施設長</div>
+        <div class="staff-name">三田 忠男</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 利用者の声 -->
+<section class="voices" id="voices">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Voices</div>
+      <h2 class="section-title">利用者・ご家族の声</h2>
+      <p class="section-desc">特定非営利活動法人えーるを利用いただいた方々のリアルな声をご紹介します。</p>
+    </div>
+    <div class="voices-grid">
+      <div class="voice-card reveal">
+        <div class="voice-quote">❝</div>
+        <p class="voice-text">最初は不安でいっぱいでしたが、スタッフさんがとても親身に話を聞いてくれました。農園作業をきっかけに外に出られるようになり、今では毎日通うのが楽しみです。</p>
+        <div class="voice-author">
+          <div class="author-avatar">😊</div>
+          <div>
+            <div class="author-name">Aさん（30代・女性）</div>
+            <div class="author-meta">利用歴 2年 / 就労継続支援B型</div>
+          </div>
+        </div>
+      </div>
+      <div class="voice-card reveal">
+        <div class="voice-quote">❝</div>
+        <p class="voice-text">息子が引きこもりがちでしたが、えーるに通いだして笑顔が増えました。スタッフの皆さんが本当に寄り添ってくれて、親として感謝しかありません。</p>
+        <div class="voice-author">
+          <div class="author-avatar">🌱</div>
+          <div>
+            <div class="author-name">Bさんのご家族</div>
+            <div class="author-meta">ご家族 / 就労継続支援B型</div>
+          </div>
+        </div>
+      </div>
+      <div class="voice-card reveal">
+        <div class="voice-quote">❝</div>
+        <p class="voice-text">相談支援「こころ」に出会い、自分に合った福祉サービスを見つけることができました。計画作成からフォローまで丁寧にサポートしてもらい安心です。</p>
+        <div class="voice-author">
+          <div class="author-avatar">✨</div>
+          <div>
+            <div class="author-name">Cさん（40代・男性）</div>
+            <div class="author-meta">相談支援事業こころ 利用者</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info" id="info">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Access &amp; Info</div>
+      <h2 class="section-title">施設情報・アクセス</h2>
+    </div>
+    <div class="info-grid">
+      <div class="reveal">
+        <table class="info-table">
+          <tr><th>法人名</th><td>特定非営利活動法人えーる</td></tr>
+          <tr><th>施設名</th><td>特定非営利活動法人えーる</td></tr>
+          <tr><th>サービス種別</th><td>就労継続支援B型事業・相談支援事業</td></tr>
+          <tr><th>所在地</th><td>静岡県伊豆市下白岩７００－１</td></tr>
+          <tr><th>TEL / FAX</th><td>０５５８－８３－５１０２</td></tr>
+          <tr><th>営業日</th><td>月曜〜土曜（日・祝・年末年始除く）</td></tr>
+          <tr><th>営業時間</th><td>9:00〜17:00</td></tr>
+          <tr><th>定員</th><td>就労継続支援B型　２０名</td></tr>
+          <tr><th>アクセス</th><td>修善寺駅よりお問い合わせください</td></tr>
+        </table>
+      </div>
+      <div class="reveal">
+        <div class="map-placeholder">
+          <div class="map-label">📍 静岡県伊豆市下白岩７００－１</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-inner cta-inner">
+    <div class="section-label">Contact Us</div>
+    <h2 class="section-title">まずは、お気軽にご相談ください</h2>
+    <p class="section-desc" style="margin:1.5rem auto 2.5rem;max-width:500px;">見学・体験は無料です。「どんなところか知りたい」「自分に合うか不安」など、どんな小さなことでもお気軽にどうぞ。</p>
+    <div class="cta-buttons">
+      <a href="tel:0558-83-5102" class="btn-white">📞 ０５５８－８３－５１０２</a>
+      <a href="#info" class="btn-outline-white">📍 アクセス・詳細を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="nav-logo" style="color:var(--earth-light);">🌿 特定非営利活動法人えーる</a>
+        <p class="footer-desc">静岡県伊豆市を拠点に、障がいのある方が自分らしく輝ける社会の実現を目指して活動しています。</p>
+      </div>
+      <div class="footer-col">
+        <h4>サービス</h4>
+        <ul>
+          <li><a href="#services">就労継続支援B型</a></li>
+          <li><a href="#cocoro">相談支援事業こころ</a></li>
+          <li><a href="#products">手作り製品</a></li>
+          <li><a href="#activities">年間活動記録</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>情報</h4>
+        <ul>
+          <li><a href="#about">えーるについて</a></li>
+          <li><a href="#flow">ご利用の流れ</a></li>
+          <li><a href="#voices">利用者の声</a></li>
+          <li><a href="#info">アクセス</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>関連リンク</h4>
+        <ul>
+          <li><a href="https://www.mhlw.go.jp/" target="_blank">厚生労働省（障害福祉）</a></li>
+          <li><a href="https://www.city.izu.shizuoka.jp/" target="_blank">伊豆市公式サイト</a></li>
+          <li><a href="https://jsite.mhlw.go.jp/shizuoka-hellowork/" target="_blank">ハローワーク静岡</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 特定非営利活動法人えーる. All Rights Reserved.</span>
+      <a href="#">特定商取引法に基づく表記</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav ul a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--sage-dark)' : ''; });
+  });
+</script>
+</body>
+</html>
